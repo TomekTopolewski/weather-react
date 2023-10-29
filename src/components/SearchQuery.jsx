@@ -1,3 +1,5 @@
+import styles from "./SearchQuery.module.css";
+
 import { useState } from "react";
 import { useWeather } from "../contexts/WeatherContext";
 
@@ -11,7 +13,7 @@ function SearchQuery() {
   }
 
   return (
-    <div>
+    <div className={styles.query}>
       <input
         type="text"
         placeholder="Search"

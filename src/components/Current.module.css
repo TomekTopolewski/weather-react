@@ -1,0 +1,25 @@
+.current {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.8rem;
+  border: 0.1rem solid var(--light-grey);
+  border-radius: 4px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.footer {
+  align-self: flex-end;
+}

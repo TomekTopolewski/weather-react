@@ -25,29 +25,39 @@ function WeatherProvider({ children }) {
   const [{ cities, city }, dispatch] = useReducer(reducer, initialState);
 
   async function getCities(query) {
+    const controller = new AbortController();
     try {
       if (query.length < 3) return;
       const response = await fetch(
-        `${BASE_URL}search.json?key=${API_KEY}&q=${query}`
+        `${BASE_URL}search.json?key=${API_KEY}&q=${query}`,
+        { signal: controller.signal }
       );
       const data = await response.json();
       dispatch({ type: "search", payload: data });
     } catch (error) {
-      throw new Error(error.message);
+      if (error.name !== "AbortError") throw new Error(error.message);
     }
+    return () => {
+      controller.abort();
+    };
   }
 
   async function loadWeatherData(location) {
+    const controller = new AbortController();
     try {
       if (!location) return;
       const response = await fetch(
-        `${BASE_URL}forecast.json?key=${API_KEY}&q=${location}&days=3&aqi=no&alerts=yes`
+        `${BASE_URL}forecast.json?key=${API_KEY}&q=${location}&days=3&aqi=no&alerts=yes`,
+        { signal: controller.signal }
       );
       const data = await response.json();
       dispatch({ type: "getWeather", payload: data });
     } catch (error) {
-      throw new Error(error.message);
+      if (error.name !== "AbortError") throw new Error(error.message);
     }
+    return () => {
+      controller.abort();
+    };
   }
 
   return (

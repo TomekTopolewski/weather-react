@@ -1,3 +1,5 @@
+import styles from "./SearchList.module.css";
+
 import { useWeather } from "../contexts/WeatherContext";
 
 function SearchList() {
@@ -9,7 +11,7 @@ function SearchList() {
   }
 
   return (
-    <ul>
+    <ul className={styles.search}>
       {cities.map((city) => (
         <li
           key={city.id}
