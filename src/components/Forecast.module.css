@@ -45,3 +45,21 @@
 .active {
   font-weight: 500;
 }
+
+.icon {
+  font-size: 2.8rem;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.red {
+  font-weight: 500;
+  color: var(--red);
+}
+
+.blue {
+  font-weight: 500;
+  color: var(--blue);
+}
