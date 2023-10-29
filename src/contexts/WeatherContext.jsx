@@ -22,7 +22,7 @@ function reducer(state, action) {
 const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
-  const [{ cities }, dispatch] = useReducer(reducer, initialState);
+  const [{ cities, city }, dispatch] = useReducer(reducer, initialState);
 
   async function getCities(query) {
     try {
@@ -54,6 +54,7 @@ function WeatherProvider({ children }) {
     <WeatherContext.Provider
       value={{
         cities,
+        city,
         getCities,
         loadWeatherData,
       }}
