@@ -1,4 +1,5 @@
 import styles from "./SearchList.module.css";
+import toolbox from "./General.module.css";
 
 import { useWeather } from "../contexts/WeatherContext";
 
@@ -8,24 +9,27 @@ function SearchList() {
   const activeStyle = function (city) {
     if (Object.keys(currCity).length === 0) return;
     const style =
-      city.region === currCity.location.region ? styles["active"] : null;
+      city.region === currCity.location.region ? toolbox["active"] : null;
     return style;
   };
 
   return (
-    <ul className={styles.search}>
-      {cities.map((city) => (
-        <li
-          key={city.id}
-          data-name={city.name}
-          onClick={() => loadWeatherData(`${city.lat},${city.lon}`)}
-          className={activeStyle(city)}
-        >
-          <p>{city.name}</p>
-          <p className={styles.italic}>{city.country}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      {Object.keys(cities).length > 0 && (
+        <ul className={styles.search}>
+          {cities.map((city) => (
+            <li
+              key={city.id}
+              onClick={() => loadWeatherData(`${city.lat},${city.lon}`)}
+              className={activeStyle(city)}
+            >
+              <p>{city.name}</p>
+              <p className={toolbox.italic}>{city.country}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
 

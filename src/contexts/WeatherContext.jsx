@@ -6,6 +6,19 @@ const BASE_URL = "http://api.weatherapi.com/v1/";
 const initialState = {
   cities: [],
   city: {},
+  uvIndex: [
+    { name: "low", color: "green" },
+    { name: "low", color: "green" },
+    { name: "moderate", color: "yellow" },
+    { name: "moderate", color: "yellow" },
+    { name: "moderate", color: "yellow" },
+    { name: "high", color: "orange" },
+    { name: "high", color: "orange" },
+    { name: "very high", color: "red" },
+    { name: "very high", color: "red" },
+    { name: "very high", color: "red" },
+    { name: "extreme", color: "purple" },
+  ],
 };
 
 function reducer(state, action) {
@@ -22,7 +35,10 @@ function reducer(state, action) {
 const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
-  const [{ cities, city }, dispatch] = useReducer(reducer, initialState);
+  const [{ cities, city, uvIndex }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   async function getCities(query) {
     const controller = new AbortController();
@@ -65,6 +81,7 @@ function WeatherProvider({ children }) {
       value={{
         cities,
         city,
+        uvIndex,
         getCities,
         loadWeatherData,
       }}

@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
   padding: 0.8rem;
   border: 0.1rem solid var(--light-grey);
   box-shadow: 0 0 0.2rem var(--light-grey);
@@ -20,52 +20,6 @@
 .main {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.icon {
-  font-size: 2.8rem;
-}
-
-.green {
-  color: var(--green);
-}
-
-.yellow {
-  color: var(--yellow);
-}
-
-.orange {
-  color: var(--orange);
-}
-
-.red {
-  color: var(--red);
-}
-
-.purple {
-  color: var(--purple);
-}
-
-.blue {
-  color: var(--blue);
-}
-
-.box {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.smallText {
-  font-size: 1.4rem;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.top {
-  align-self: flex-start;
 }
 
 @media (max-width: 44em) {

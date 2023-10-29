@@ -1,0 +1,49 @@
+.icon {
+  font-size: 2.8rem;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.top {
+  align-self: flex-start;
+}
+
+.smallText {
+  font-size: 1.4rem;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.active {
+  font-weight: 500;
+}
+
+.green {
+  color: var(--green);
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
+.orange {
+  color: var(--orange);
+}
+
+.red {
+  color: var(--red);
+}
+
+.purple {
+  color: var(--purple);
+}
+
+.blue {
+  color: var(--blue);
+}

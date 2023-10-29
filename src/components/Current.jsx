@@ -1,4 +1,5 @@
 import styles from "./Current.module.css";
+import toolbox from "./General.module.css";
 
 import {
   WiThermometer,
@@ -14,90 +15,76 @@ import {
 import { useWeather } from "../contexts/WeatherContext";
 
 function Current() {
-  const { city } = useWeather();
+  const { city, uvIndex } = useWeather();
   if (Object.keys(city).length === 0) return;
 
   const { location, current, forecast } = city;
-
-  const uvIndex = [
-    { name: "low", color: "green" },
-    { name: "low", color: "green" },
-    { name: "moderate", color: "yellow" },
-    { name: "moderate", color: "yellow" },
-    { name: "moderate", color: "yellow" },
-    { name: "high", color: "orange" },
-    { name: "high", color: "orange" },
-    { name: "very high", color: "red" },
-    { name: "very high", color: "red" },
-    { name: "very high", color: "red" },
-    { name: "extreme", color: "purple" },
-  ];
 
   return (
     <div className={styles.current}>
       <header className={styles.header}>
         <div>
           <p>{location.name}</p>
-          <p className={`${styles.smallText} ${styles.italic}`}>
+          <p className={`${toolbox.smallText} ${toolbox.italic}`}>
             {location.country}
           </p>
         </div>
-        <p className={`${styles.smallText} ${styles.top}`}>
+        <p className={`${toolbox.smallText} ${toolbox.top}`}>
           {location.localtime}
         </p>
       </header>
       <main className={styles.main}>
-        <div className={styles.box} title="Temperature °C">
-          <WiThermometer className={styles.icon} />
-          <p className={styles.red}>{current.temp_c}°</p>
-          <p className={`${styles.smallText} ${styles.red}`}>
+        <div className={toolbox.box} title="Temperature °C">
+          <WiThermometer className={toolbox.icon} />
+          <p className={toolbox.red}>{current.temp_c}°</p>
+          <p className={`${toolbox.smallText} ${toolbox.red}`}>
             ({current.feelslike_c}°)
           </p>
         </div>
-        <div className={styles.box} title="Precipitation mm">
-          <WiUmbrella className={styles.icon} />
-          <p className={styles.blue}>{current.precip_mm}</p>
-          <p className={`${styles.smallText} ${styles.blue}`}>mm</p>
+        <div className={toolbox.box} title="Precipitation mm">
+          <WiUmbrella className={toolbox.icon} />
+          <p className={toolbox.blue}>{current.precip_mm}</p>
+          <p className={`${toolbox.smallText} ${toolbox.blue}`}>mm</p>
         </div>
-        <div className={styles.box} title="Wind kph">
-          <WiStrongWind className={styles.icon} />
+        <div className={toolbox.box} title="Wind kph">
+          <WiStrongWind className={toolbox.icon} />
           <p>{current.wind_kph}</p>
-          <p className={styles.smallText}>kph</p>
+          <p className={toolbox.smallText}>kph</p>
         </div>
-        <div className={styles.box} title="UV index">
-          <WiDaySunny className={styles.icon} />
-          <p className={styles[uvIndex.at(current.uv - 1).color]}>
+        <div className={toolbox.box} title="UV index">
+          <WiDaySunny className={toolbox.icon} />
+          <p className={toolbox[uvIndex.at(current.uv - 1).color]}>
             {current.uv}
           </p>
           <p
-            className={`${styles.smallText} ${
-              styles[uvIndex.at(current.uv - 1).color]
+            className={`${toolbox.smallText} ${
+              toolbox[uvIndex.at(current.uv - 1).color]
             }`}
           >
             {uvIndex.at(current.uv - 1).name}
           </p>
         </div>
-        <div className={styles.box} title="Pressure hPa">
-          <WiBarometer className={styles.icon} />
+        <div className={toolbox.box} title="Pressure hPa">
+          <WiBarometer className={toolbox.icon} />
           <p>{current.pressure_mb}</p>
-          <p className={styles.smallText}>hPa</p>
+          <p className={toolbox.smallText}>hPa</p>
         </div>
-        <div className={styles.box} title="Humidity %">
-          <WiRaindrops className={styles.icon} />
+        <div className={toolbox.box} title="Humidity %">
+          <WiRaindrops className={toolbox.icon} />
           <p>{current.humidity}</p>
-          <p className={styles.smallText}>%</p>
+          <p className={toolbox.smallText}>%</p>
         </div>
-        <div className={styles.box} title="Sunrise">
-          <WiSunrise className={styles.icon} />
+        <div className={toolbox.box} title="Sunrise">
+          <WiSunrise className={toolbox.icon} />
           <p>{forecast.forecastday[0].astro.sunrise.slice(0, 5)}</p>
-          <p className={styles.smallText}>
+          <p className={toolbox.smallText}>
             {forecast.forecastday[0].astro.sunrise.slice(-2)}
           </p>
         </div>
-        <div className={styles.box} title="Sunset">
-          <WiSunset className={styles.icon} />
+        <div className={toolbox.box} title="Sunset">
+          <WiSunset className={toolbox.icon} />
           <p>{forecast.forecastday[0].astro.sunset.slice(0, 5)}</p>
-          <p className={styles.smallText}>
+          <p className={toolbox.smallText}>
             {forecast.forecastday[0].astro.sunset.slice(-2)}
           </p>
         </div>

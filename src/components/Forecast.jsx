@@ -1,4 +1,5 @@
 import styles from "./Forecast.module.css";
+import toolbox from "./General.module.css";
 
 import { IoTimeOutline, IoInformation } from "react-icons/io5";
 
@@ -14,7 +15,7 @@ import { Fragment, useState } from "react";
 import { useWeather } from "../contexts/WeatherContext";
 
 function Forecast() {
-  const { city } = useWeather();
+  const { city, uvIndex } = useWeather();
   const [day, setDay] = useState(0);
 
   if (Object.keys(city).length === 0) return;
@@ -31,20 +32,6 @@ function Forecast() {
     return date.toDateString().slice(0, 3);
   });
 
-  const uvIndex = [
-    { name: "low", color: "green" },
-    { name: "low", color: "green" },
-    { name: "moderate", color: "yellow" },
-    { name: "moderate", color: "yellow" },
-    { name: "moderate", color: "yellow" },
-    { name: "high", color: "orange" },
-    { name: "high", color: "orange" },
-    { name: "very high", color: "red" },
-    { name: "very high", color: "red" },
-    { name: "very high", color: "red" },
-    { name: "extreme", color: "purple" },
-  ];
-
   function row(hour) {
     return (
       <Fragment key={hour.time_epoch}>
@@ -52,13 +39,13 @@ function Forecast() {
           <img src={hour.condition.icon} alt={hour.condition.text} />
         </div>
         <div>
-          <p className={styles.bold}>{hour.time.slice(-5).slice(0, 2)}</p>
+          <p className={toolbox.active}>{hour.time.slice(-5).slice(0, 2)}</p>
         </div>
         <div>
-          <p className={styles.red}>{Math.floor(hour.temp_c)}</p>
+          <p className={toolbox.red}>{Math.floor(hour.temp_c)}</p>
         </div>
         <div>
-          <p className={styles.blue}>{Math.floor(hour.precip_mm)}</p>
+          <p className={toolbox.blue}>{Math.floor(hour.precip_mm)}</p>
         </div>
         <div>
           <p>{hour.chance_of_rain}</p>
@@ -67,7 +54,7 @@ function Forecast() {
           <p>{Math.floor(hour.wind_kph)}</p>
         </div>
         <div>
-          <p className={styles[uvIndex.at(hour.uv - 1).color]}>{hour.uv}</p>
+          <p className={toolbox[uvIndex.at(hour.uv - 1).color]}>{hour.uv}</p>
         </div>
       </Fragment>
     );
@@ -81,7 +68,7 @@ function Forecast() {
             <p
               key={index}
               onClick={() => setDay(index)}
-              className={index === day ? styles.active : null}
+              className={index === day ? toolbox.active : null}
             >
               {name}
             </p>
@@ -90,25 +77,25 @@ function Forecast() {
       </header>
       <main className={styles.main}>
         <div title="Weather description">
-          <IoInformation className={styles.icon} />
+          <IoInformation className={toolbox.icon} />
         </div>
         <div title="Time">
-          <IoTimeOutline className={styles.icon} />
+          <IoTimeOutline className={toolbox.icon} />
         </div>
         <div title="Temperature °C">
-          <WiThermometer className={styles.icon} />
+          <WiThermometer className={toolbox.icon} />
         </div>
         <div title="Rain mm">
-          <WiUmbrella className={styles.icon} />
+          <WiUmbrella className={toolbox.icon} />
         </div>
         <div title="Chance of rain %">
-          <WiHumidity className={styles.icon} />
+          <WiHumidity className={toolbox.icon} />
         </div>
         <div title="Wind kph">
-          <WiStrongWind className={styles.icon} />
+          <WiStrongWind className={toolbox.icon} />
         </div>
         <div title="UV index">
-          <WiDaySunny className={styles.icon} />
+          <WiDaySunny className={toolbox.icon} />
         </div>
         {forecastday
           .at(day)
