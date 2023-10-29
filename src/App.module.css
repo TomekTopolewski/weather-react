@@ -4,6 +4,12 @@
   gap: 1rem;
   margin: 1rem auto;
   width: 95rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   padding: 0.8rem;
+}
+
+@media (max-width: 44em) {
+  .app {
+    width: auto;
+  }
 }

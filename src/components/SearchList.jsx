@@ -3,12 +3,14 @@ import styles from "./SearchList.module.css";
 import { useWeather } from "../contexts/WeatherContext";
 
 function SearchList() {
-  const { cities, loadWeatherData } = useWeather();
+  const { cities, city: currCity, loadWeatherData } = useWeather();
 
-  function handleClick(event) {
-    const parent = event.target.closest("li");
-    loadWeatherData(parent.dataset.name);
-  }
+  const activeStyle = function (city) {
+    if (Object.keys(currCity).length === 0) return;
+    const style =
+      city.region === currCity.location.region ? styles["active"] : null;
+    return style;
+  };
 
   return (
     <ul className={styles.search}>
@@ -16,9 +18,11 @@ function SearchList() {
         <li
           key={city.id}
           data-name={city.name}
-          onClick={(event) => handleClick(event)}
+          onClick={() => loadWeatherData(`${city.lat},${city.lon}`)}
+          className={activeStyle(city)}
         >
-          {city.name}
+          <p>{city.name}</p>
+          <p className={styles.italic}>{city.country}</p>
         </li>
       ))}
     </ul>

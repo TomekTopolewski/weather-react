@@ -3,10 +3,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.8rem;
   padding: 0.8rem;
   border: 0.1rem solid var(--light-grey);
+  box-shadow: 0 0 0.2rem var(--light-grey);
   border-radius: 4px;
+  font-size: 2.4rem;
 }
 
 .header {
@@ -20,13 +22,54 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
-.footer {
-  align-self: flex-end;
+.icon {
+  font-size: 2.8rem;
 }
 
-.footer button {
-  border: none;
-  outline: none;
-  background: none;
-  font-weight: 500;
+.green {
+  color: var(--green);
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
+.orange {
+  color: var(--orange);
+}
+
+.red {
+  color: var(--red);
+}
+
+.purple {
+  color: var(--purple);
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.smallText {
+  font-size: 1.4rem;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.top {
+  align-self: flex-start;
+}
+
+@media (max-width: 44em) {
+  .main {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

@@ -25,6 +25,26 @@ function Forecast() {
 
   const now = String(new Date().getTime() - 3600000).slice(0, 10);
 
+  const tabNames = forecastday.map((day) => {
+    const date = new Date(0);
+    date.setUTCSeconds(day.date_epoch);
+    return date.toDateString().slice(0, 3);
+  });
+
+  const uvIndex = [
+    { name: "low", color: "green" },
+    { name: "low", color: "green" },
+    { name: "moderate", color: "yellow" },
+    { name: "moderate", color: "yellow" },
+    { name: "moderate", color: "yellow" },
+    { name: "high", color: "orange" },
+    { name: "high", color: "orange" },
+    { name: "very high", color: "red" },
+    { name: "very high", color: "red" },
+    { name: "very high", color: "red" },
+    { name: "extreme", color: "purple" },
+  ];
+
   function row(hour) {
     return (
       <Fragment key={hour.time_epoch}>
@@ -47,7 +67,7 @@ function Forecast() {
           <p>{Math.floor(hour.wind_kph)}</p>
         </div>
         <div>
-          <p>{hour.uv}</p>
+          <p className={styles[uvIndex.at(hour.uv - 1).color]}>{hour.uv}</p>
         </div>
       </Fragment>
     );
@@ -56,15 +76,17 @@ function Forecast() {
   return (
     <div className={styles.forecast}>
       <header className={styles.header}>
-        {forecastday.map((d, i) => (
-          <p
-            key={i}
-            onClick={() => setDay(i)}
-            className={i === day ? styles.active : null}
-          >
-            {d.date}
-          </p>
-        ))}
+        <div>
+          {tabNames.map((name, index) => (
+            <p
+              key={index}
+              onClick={() => setDay(index)}
+              className={index === day ? styles.active : null}
+            >
+              {name}
+            </p>
+          ))}
+        </div>
       </header>
       <main className={styles.main}>
         <div title="Weather description">
@@ -91,6 +113,7 @@ function Forecast() {
         {forecastday
           .at(day)
           .hour.filter((h) => h.time_epoch >= now)
+          .filter((_, i) => !(i % 2))
           .map((hour) => row(hour))}
       </main>
       <footer></footer>
