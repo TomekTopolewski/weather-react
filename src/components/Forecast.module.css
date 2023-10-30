@@ -53,3 +53,11 @@
 .main div:nth-child(14n + 7) {
   background: rgba(173, 181, 189, 0.1);
 }
+
+.headerText {
+  font-size: 1.4rem;
+}
+
+.headerIcon {
+  font-size: 1.4rem;
+}

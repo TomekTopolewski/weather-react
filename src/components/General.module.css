@@ -1,5 +1,5 @@
 .icon {
-  font-size: 2.8rem;
+  font-size: 2.4rem;
 }
 
 .italic {
@@ -10,7 +10,7 @@
   align-self: flex-start;
 }
 
-.smallText {
+.small {
   font-size: 1.4rem;
 }
 

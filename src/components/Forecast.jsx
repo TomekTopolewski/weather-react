@@ -1,7 +1,7 @@
 import styles from "./Forecast.module.css";
 import toolbox from "./General.module.css";
 
-import { IoTimeOutline, IoInformation } from "react-icons/io5";
+import { IoTimeOutline, IoInformation, IoCalendarOutline } from "react-icons/io5";
 
 import {
   WiThermometer,
@@ -62,6 +62,10 @@ function Forecast() {
 
   return (
     <div className={styles.forecast}>
+      <div className={toolbox.box}>
+        <IoCalendarOutline className={toolbox.small} />
+        <p className={toolbox.small}>Forecast</p>
+      </div>
       <header className={styles.header}>
         <div>
           {tabNames.map((name, index) => (

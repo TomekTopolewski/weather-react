@@ -3,9 +3,16 @@ import { createContext, useContext, useReducer } from "react";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "http://api.weatherapi.com/v1/";
 
+function loadLocalStorage() {
+  if (!localStorage.getItem("favourities")) return [];
+  const fromStorage = localStorage.getItem("favourities");
+  return JSON.parse(fromStorage);
+}
+
 const initialState = {
   cities: [],
   city: {},
+  favourities: loadLocalStorage(),
   uvIndex: [
     { name: "low", color: "green" },
     { name: "low", color: "green" },
@@ -27,6 +34,8 @@ function reducer(state, action) {
       return { ...state, cities: action.payload };
     case "getWeather":
       return { ...state, city: action.payload };
+    case "saveCity":
+      return { ...state, favourities: [...state.favourities, action.payload] };
     default:
       throw new Error("Unknown action");
   }
@@ -35,10 +44,23 @@ function reducer(state, action) {
 const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
-  const [{ cities, city, uvIndex }, dispatch] = useReducer(
+  const [{ cities, city, uvIndex, favourities }, dispatch] = useReducer(
     reducer,
     initialState
   );
+
+  function saveCity(city) {
+    let duplicate = false;
+
+    favourities.map((c) => {
+      if (`${c.lat},${c.lon}` === `${city.lat},${city.lon}`) duplicate = true;
+    });
+
+    if (!duplicate) {
+      dispatch({ type: "saveCity", payload: city });
+      localStorage.setItem("favourities", JSON.stringify([...favourities, city]));
+    }
+  }
 
   async function getCities(query) {
     const controller = new AbortController();
@@ -68,6 +90,7 @@ function WeatherProvider({ children }) {
       );
       const data = await response.json();
       dispatch({ type: "getWeather", payload: data });
+      document.title = `Weather in ${data.location.name}`;
     } catch (error) {
       if (error.name !== "AbortError") throw new Error(error.message);
     }
@@ -82,6 +105,8 @@ function WeatherProvider({ children }) {
         cities,
         city,
         uvIndex,
+        favourities,
+        saveCity,
         getCities,
         loadWeatherData,
       }}

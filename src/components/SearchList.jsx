@@ -3,31 +3,31 @@ import toolbox from "./General.module.css";
 
 import { useWeather } from "../contexts/WeatherContext";
 
-function SearchList() {
-  const { cities, city: currCity, loadWeatherData } = useWeather();
+import { IoSearchOutline } from "react-icons/io5";
 
-  const activeStyle = function (city) {
-    if (Object.keys(currCity).length === 0) return;
-    const style =
-      city.region === currCity.location.region ? toolbox["active"] : null;
-    return style;
-  };
+function SearchList() {
+  const { cities, loadWeatherData } = useWeather();
 
   return (
     <>
       {Object.keys(cities).length > 0 && (
-        <ul className={styles.search}>
-          {cities.map((city) => (
-            <li
-              key={city.id}
-              onClick={() => loadWeatherData(`${city.lat},${city.lon}`)}
-              className={activeStyle(city)}
-            >
-              <p>{city.name}</p>
-              <p className={toolbox.italic}>{city.country}</p>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.search}>
+          <div className={toolbox.box}>
+            <IoSearchOutline className={toolbox.small} />
+            <p className={toolbox.small}>Search</p>
+          </div>
+          <ul>
+            {cities.map((city) => (
+              <li
+                key={city.id}
+                onClick={() => loadWeatherData(`${city.lat},${city.lon}`)}
+              >
+                <p>{city.name}</p>
+                <p className={toolbox.italic}>{city.country}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </>
   );

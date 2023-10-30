@@ -1,4 +1,4 @@
-.search {
+.favourities {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,14 +11,14 @@
   border: 0.1rem solid var(--light-grey);
 }
 
-.search li {
+.favourities li {
   padding: 0.2rem 0;
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-.search li:hover {
+.favourities li:hover {
   cursor: pointer;
   font-weight: 500;
 }
