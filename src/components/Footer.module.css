@@ -14,3 +14,7 @@
   display: flex;
   justify-content: center;
 }
+
+.footer img {
+  width: 107px;
+}
