@@ -5,18 +5,6 @@ function Footer() {
     <div className={styles.center}>
       <div className={styles.footer}>
         <a
-          href="https://github.com/TomekTopolewski/weather-react-v2"
-          title="Browse code on GitHub"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src="src\assets\GitHub_Logo.png"
-            alt="Browse code on GitHub"
-            border="0"
-          />
-        </a>
-        <a
           href="https://www.weatherapi.com/"
           title="Free Weather API"
           target="_blank"

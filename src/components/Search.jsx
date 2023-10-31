@@ -1,9 +1,11 @@
 import { useWeather } from "../contexts/WeatherContext";
 import styles from "./Search.module.css";
 import toolbox from "./Toolbox.module.css";
+import { IoSearchOutline, IoLocateOutline } from "react-icons/io5";
 
 function Search() {
-  const { query, cities, showSearchList, search, getData } = useWeather();
+  const { query, cities, showSearchList, search, getData, getPosition } =
+    useWeather();
 
   function list() {
     if (cities.length === 0) {
@@ -28,12 +30,18 @@ function Search() {
 
   return (
     <div className={styles.search}>
-      <input
-        type="text"
-        placeholder="Search"
-        value={query}
-        onChange={(event) => search(event.target.value)}
-      />
+      <div className={styles.wrapper}>
+        <div className={toolbox.flex}>
+          <IoSearchOutline className={toolbox.medium} />
+          <input
+            type="text"
+            placeholder="Search"
+            value={query}
+            onChange={(event) => search(event.target.value)}
+          />
+        </div>
+        <IoLocateOutline className={styles.gpsIcon} onClick={getPosition} />
+      </div>
 
       {showSearchList && list()}
     </div>

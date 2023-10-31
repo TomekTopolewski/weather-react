@@ -9,7 +9,7 @@
 }
 
 .center {
-  padding: 1.4rem;
+  margin: 1.4rem 0;
   background-color: var(--white);
   display: flex;
   justify-content: center;
@@ -17,4 +17,11 @@
 
 .footer img {
   width: 107px;
+}
+
+/* 1em = 16px */
+@media (max-width: 44em) {
+  .footer {
+    width: 94%;
+  }
 }

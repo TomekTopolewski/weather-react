@@ -3,5 +3,6 @@
 }
 
 .favouriteIcon:hover {
+  transition: all 0.25s linear;
   color: var(--yellow);
 }

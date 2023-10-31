@@ -15,20 +15,45 @@
   width: 60rem;
   border-radius: 4px;
   background-color: #fff;
+  box-shadow: 0 0 0.2rem var(--grey);
   padding: 0.4rem 0.8rem;
   font-size: 1.6rem;
 }
 
-input {
+.wrapper {
   width: 40rem;
   height: 3rem;
-  border: none;
-  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.4rem 0.8rem;
   border-radius: 4px;
+  background-color: #fff;
+}
+
+input {
+  width: 98%;
+  border: none;
+  outline: none;
   font-size: 1.6rem;
 }
 
 input::placeholder {
   font-style: italic;
+}
+
+.gpsIcon {
+  font-size: 2.2rem;
+}
+
+.gpsIcon:hover {
+  transition: all 0.25s linear;
+  color: var(--pink);
+}
+
+@media (max-width: 44em) {
+  .searchList,
+  .wrapper {
+    width: 94%;
+  }
 }

@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
-const BASE_URL = "http://api.weatherapi.com/v1/";
+const API_KEY = `${import.meta.env.VITE_API_KEY}${String(300528 * 2)}${String(
+  26461814 / 2
+)}`;
+const BASE_URL = "https://api.weatherapi.com/v1/";
 
 function readLocalStorage() {
   if (!localStorage.getItem("favourities")) return [];
@@ -119,6 +121,19 @@ function WeatherProvider({ children }) {
     };
   }
 
+  function getPosition() {
+    if (!navigator.geolocation)
+      throw new Error("Your browser does not support geolocation");
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        getData(`${position.coords.latitude},${position.coords.longitude}`);
+      },
+      (error) => {
+        throw new Error(error.message);
+      }
+    );
+  }
+
   useEffect(function () {
     getData(`52.25,21`);
   }, []);
@@ -148,6 +163,7 @@ function WeatherProvider({ children }) {
         addToFavourite,
         search,
         getData,
+        getPosition,
         dispatch,
       }}
     >
