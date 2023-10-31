@@ -1,8 +1,8 @@
-import styles from "./Footer.module.css";
+import toolbox from "./Toolbox.module.css";
 
 function Footer() {
   return (
-    <div className={styles.footer}>
+    <div className={toolbox.footer}>
       <a href="https://www.weatherapi.com/" title="Free Weather API">
         <img
           src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png"

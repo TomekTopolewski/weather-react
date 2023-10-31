@@ -1,29 +1,26 @@
-import styles from "./Favourities.module.css";
-import toolbox from "./General.module.css";
-
 import { useWeather } from "../contexts/WeatherContext";
-
 import { IoMapOutline } from "react-icons/io5";
+import toolbox from "./Toolbox.module.css";
 
 function Favourities() {
-  const { favourities, loadWeatherData } = useWeather();
+  const { favourities, getData } = useWeather();
 
   if (favourities.length === 0) return;
 
   return (
-    <div className={styles.favourities}>
-      <div className={toolbox.box}>
-        <IoMapOutline className={toolbox.small} />
-        <p className={toolbox.small}>My locations</p>
+    <div className={toolbox.container}>
+      <div className={toolbox.flex}>
+        <IoMapOutline />
+        <p>My locations</p>
       </div>
       <ul>
         {favourities.map((city) => (
           <li
             key={`${city.lat},${city.lon}`}
-            onClick={() => loadWeatherData(`${city.lat},${city.lon}`)}
+            onClick={() => getData(`${city.lat},${city.lon}`)}
           >
             <p>{city.name}</p>
-            <p className={toolbox.italic}>{city.country}</p>
+            <p>{city.country}</p>
           </li>
         ))}
       </ul>

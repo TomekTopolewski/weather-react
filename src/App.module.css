@@ -1,15 +1,15 @@
-.app {
+.center {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin: 1rem auto;
-  width: 95rem;
-  font-size: 1.6rem;
-  padding: 0.8rem;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 44em) {
-  .app {
-    width: auto;
-  }
+.window {
+  width: 80rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-top: 1.6rem;
+  font-size: 1.6rem;
 }

@@ -1,18 +1,19 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "http://api.weatherapi.com/v1/";
 
-function loadLocalStorage() {
+function readLocalStorage() {
   if (!localStorage.getItem("favourities")) return [];
   const fromStorage = localStorage.getItem("favourities");
   return JSON.parse(fromStorage);
 }
 
 const initialState = {
+  query: "",
   cities: [],
   city: {},
-  favourities: loadLocalStorage(),
+  favourities: readLocalStorage(),
   uvIndex: [
     { name: "low", color: "green" },
     { name: "low", color: "green" },
@@ -26,15 +27,28 @@ const initialState = {
     { name: "very high", color: "red" },
     { name: "extreme", color: "purple" },
   ],
+  showSearchList: false,
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "search":
+    case "setQuery":
+      return {
+        ...state,
+        query: action.payload.query,
+        showSearchList: action.payload.flag,
+      };
+    case "setCities":
       return { ...state, cities: action.payload };
-    case "getWeather":
-      return { ...state, city: action.payload };
-    case "saveCity":
+    case "setCity":
+      return {
+        ...state,
+        city: action.payload,
+        query: "",
+        cities: [],
+        showSearchList: false,
+      };
+    case "addToFavourite":
       return { ...state, favourities: [...state.favourities, action.payload] };
     default:
       throw new Error("Unknown action");
@@ -44,34 +58,35 @@ function reducer(state, action) {
 const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
-  const [{ cities, city, uvIndex, favourities }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { query, cities, city, uvIndex, favourities, showSearchList },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
-  function saveCity(city) {
+  function addToFavourite(city) {
     let duplicate = false;
-
     favourities.map((c) => {
       if (`${c.lat},${c.lon}` === `${city.lat},${city.lon}`) duplicate = true;
     });
-
     if (!duplicate) {
-      dispatch({ type: "saveCity", payload: city });
+      dispatch({ type: "addToFavourite", payload: city });
       localStorage.setItem("favourities", JSON.stringify([...favourities, city]));
     }
   }
 
-  async function getCities(query) {
+  async function search(query) {
+    dispatch({ type: "setQuery", payload: { query, flag: true } });
+
+    if (query.length < 3) return;
+
     const controller = new AbortController();
     try {
-      if (query.length < 3) return;
       const response = await fetch(
         `${BASE_URL}search.json?key=${API_KEY}&q=${query}`,
         { signal: controller.signal }
       );
       const data = await response.json();
-      dispatch({ type: "search", payload: data });
+      dispatch({ type: "setCities", payload: data });
     } catch (error) {
       if (error.name !== "AbortError") throw new Error(error.message);
     }
@@ -80,16 +95,17 @@ function WeatherProvider({ children }) {
     };
   }
 
-  async function loadWeatherData(location) {
+  async function getData(location) {
+    if (!location) return;
+
     const controller = new AbortController();
     try {
-      if (!location) return;
       const response = await fetch(
         `${BASE_URL}forecast.json?key=${API_KEY}&q=${location}&days=3&aqi=no&alerts=yes`,
         { signal: controller.signal }
       );
       const data = await response.json();
-      dispatch({ type: "getWeather", payload: data });
+      dispatch({ type: "setCity", payload: data });
       document.title = `Weather in ${data.location.name}`;
     } catch (error) {
       if (error.name !== "AbortError") throw new Error(error.message);
@@ -99,16 +115,30 @@ function WeatherProvider({ children }) {
     };
   }
 
+  useEffect(() => {
+    function callback(event) {
+      if (event.code === "Escape") {
+        dispatch({ type: "setQuery", payload: { query: "", flag: false } });
+      }
+    }
+    document.addEventListener("keydown", callback);
+    return () => {
+      document.removeEventListener("keydown", callback);
+    };
+  });
+
   return (
     <WeatherContext.Provider
       value={{
+        query,
         cities,
         city,
         uvIndex,
         favourities,
-        saveCity,
-        getCities,
-        loadWeatherData,
+        showSearchList,
+        addToFavourite,
+        search,
+        getData,
       }}
     >
       {children}
@@ -118,10 +148,8 @@ function WeatherProvider({ children }) {
 
 function useWeather() {
   const context = useContext(WeatherContext);
-
   if (context === undefined)
     throw new Error("An attempt to use WeatherContext outside WeatherProvider");
-
   return context;
 }
 
