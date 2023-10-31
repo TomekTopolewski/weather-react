@@ -2,16 +2,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0.8rem;
+  padding: 1.4rem;
   gap: 0.8rem;
   border-radius: 4px;
   background-color: #fff;
-}
-
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 
 .flex {
@@ -41,8 +35,37 @@
 .grid7c {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+}
+
+.grid7c div {
+  width: 100%;
+  height: 100%;
+  display: flex;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
+}
+
+/* 
+Those will be white
+14 * 0 + 1 = 1
+14 * 1 + 1 = 15
+14 * 2 + 1 = 29
+14 * 3 + 1 = 43
+14 * 4 + 1 = 57
+14 * 5 + 1 = 61
+14 * 6 + 1 = 85
+14 * 7 + 1 = 99
+link: https: //stackoverflow.com/questions/58251569/coloring-every-other-row-using-css-grid
+*/
+
+.grid7c div:nth-child(14n + 1),
+.grid7c div:nth-child(14n + 2),
+.grid7c div:nth-child(14n + 3),
+.grid7c div:nth-child(14n + 4),
+.grid7c div:nth-child(14n + 5),
+.grid7c div:nth-child(14n + 6),
+.grid7c div:nth-child(14n + 7) {
+  background: #f4f4f6;
 }
 
 ul {
@@ -58,5 +81,38 @@ li {
 
 li:hover {
   cursor: pointer;
+  font-weight: 500;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.big {
+  font-size: 2.8rem;
+}
+
+.medium {
+  font-size: 2.4rem;
+}
+
+.small {
+  font-size: 1.6rem;
+}
+
+.red {
+  color: var(--red);
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.imgSmall {
+  width: 42px;
+  height: 42px;
+}
+
+.active {
   font-weight: 500;
 }

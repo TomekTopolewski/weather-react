@@ -28,6 +28,7 @@ const initialState = {
     { name: "extreme", color: "purple" },
   ],
   showSearchList: false,
+  forecDay: 0,
 };
 
 function reducer(state, action) {
@@ -47,9 +48,12 @@ function reducer(state, action) {
         query: "",
         cities: [],
         showSearchList: false,
+        forecDay: 0,
       };
     case "addToFavourite":
       return { ...state, favourities: [...state.favourities, action.payload] };
+    case "setForecastDay":
+      return { ...state, forecDay: action.payload };
     default:
       throw new Error("Unknown action");
   }
@@ -59,7 +63,7 @@ const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
   const [
-    { query, cities, city, uvIndex, favourities, showSearchList },
+    { query, cities, city, uvIndex, favourities, showSearchList, forecDay },
     dispatch,
   ] = useReducer(reducer, initialState);
 
@@ -115,6 +119,10 @@ function WeatherProvider({ children }) {
     };
   }
 
+  useEffect(function () {
+    getData(`52.25,21`);
+  }, []);
+
   useEffect(() => {
     function callback(event) {
       if (event.code === "Escape") {
@@ -136,9 +144,11 @@ function WeatherProvider({ children }) {
         uvIndex,
         favourities,
         showSearchList,
+        forecDay,
         addToFavourite,
         search,
         getData,
+        dispatch,
       }}
     >
       {children}

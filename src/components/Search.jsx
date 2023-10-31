@@ -7,7 +7,11 @@ function Search() {
 
   function list() {
     if (cities.length === 0) {
-      return <div className={styles.searchList}>Type more...</div>;
+      return (
+        <div className={styles.searchList}>
+          <p className={toolbox.italic}>Type more...</p>
+        </div>
+      );
     }
 
     return (
@@ -15,7 +19,7 @@ function Search() {
         {cities.map((city) => (
           <li key={city.id} onClick={() => getData(`${city.lat},${city.lon}`)}>
             <p>{city.name}</p>
-            <p>{city.country}</p>
+            <p className={toolbox.italic}>{city.country}</p>
           </li>
         ))}
       </ul>

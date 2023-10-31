@@ -6,13 +6,13 @@ import {
   WiUmbrella,
   WiDaySunny,
 } from "react-icons/wi";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useWeather } from "../contexts/WeatherContext";
 import toolbox from "./Toolbox.module.css";
+import styles from "./Forecast.module.css";
 
 function Forecast() {
-  const { city } = useWeather();
-  const [day, setDay] = useState(0);
+  const { city, forecDay, dispatch } = useWeather();
 
   if (Object.keys(city).length === 0) return;
 
@@ -32,16 +32,20 @@ function Forecast() {
     return (
       <Fragment key={hour.time_epoch}>
         <div title={hour.condition.text}>
-          <img src={hour.condition.icon} alt={hour.condition.text} />
+          <img
+            className={toolbox.imgSmall}
+            src={hour.condition.icon}
+            alt={hour.condition.text}
+          />
         </div>
         <div>
           <p>{hour.time.slice(-5).slice(0, 2)}</p>
         </div>
         <div>
-          <p>{Math.floor(hour.temp_c)}</p>
+          <p className={toolbox.red}>{Math.floor(hour.temp_c)}</p>
         </div>
         <div>
-          <p>{Math.floor(hour.precip_mm)}</p>
+          <p className={toolbox.blue}>{Math.floor(hour.precip_mm)}</p>
         </div>
         <div>
           <p>{hour.chance_of_rain}</p>
@@ -57,49 +61,57 @@ function Forecast() {
   }
 
   return (
-    <div className={toolbox.container}>
-      <div className={toolbox.flexSpaceBetween}>
-        <div className={toolbox.flex}>
-          <IoCalendarOutline />
-          <p>Forecast</p>
+    <div className={styles.window}>
+      <div className={toolbox.container}>
+        <div className={toolbox.flexSpaceBetween}>
+          <div className={toolbox.flex}>
+            <IoCalendarOutline />
+            <p>Forecast</p>
+          </div>
+          <ul className={toolbox.flex}>
+            {tabNames.map((name, index) => (
+              <li
+                key={index}
+                className={`${index === forecDay ? toolbox["active"] : null}`}
+                onClick={() =>
+                  dispatch({ type: "setForecastDay", payload: index })
+                }
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className={toolbox.flex}>
-          {tabNames.map((name, index) => (
-            <li key={index} onClick={() => setDay(index)}>
-              {name}
-            </li>
-          ))}
-        </ul>
+        <div className={`${toolbox.grid7c} ${toolbox.small}`}>
+          <div title="Weather description">
+            <IoInformation className={toolbox.medium} />
+          </div>
+          <div title="Time">
+            <IoTimeOutline className={toolbox.medium} />
+          </div>
+          <div title="Temperature °C">
+            <WiThermometer className={toolbox.medium} />
+          </div>
+          <div title="Rain mm">
+            <WiUmbrella className={toolbox.medium} />
+          </div>
+          <div title="Chance of rain %">
+            <WiHumidity className={toolbox.medium} />
+          </div>
+          <div title="Wind kph">
+            <WiStrongWind className={toolbox.medium} />
+          </div>
+          <div title="UV index">
+            <WiDaySunny className={toolbox.medium} />
+          </div>
+          {forecastday
+            .at(forecDay)
+            .hour.filter((h) => h.time_epoch >= now)
+            .filter((_, i) => !(i % 2))
+            .map((hour) => row(hour))}
+        </div>
+        <footer></footer>
       </div>
-      <div className={toolbox.grid7c}>
-        <div title="Weather description">
-          <IoInformation />
-        </div>
-        <div title="Time">
-          <IoTimeOutline />
-        </div>
-        <div title="Temperature °C">
-          <WiThermometer />
-        </div>
-        <div title="Rain mm">
-          <WiUmbrella />
-        </div>
-        <div title="Chance of rain %">
-          <WiHumidity />
-        </div>
-        <div title="Wind kph">
-          <WiStrongWind />
-        </div>
-        <div title="UV index">
-          <WiDaySunny />
-        </div>
-        {forecastday
-          .at(day)
-          .hour.filter((h) => h.time_epoch >= now)
-          .filter((_, i) => !(i % 2))
-          .map((hour) => row(hour))}
-      </div>
-      <footer></footer>
     </div>
   );
 }

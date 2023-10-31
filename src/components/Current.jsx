@@ -11,6 +11,7 @@ import {
 import { IoStarOutline, IoTimeOutline } from "react-icons/io5";
 import { useWeather } from "../contexts/WeatherContext";
 import toolbox from "./Toolbox.module.css";
+import styles from "./Current.module.css";
 
 function Current() {
   const { city, uvIndex, addToFavourite } = useWeather();
@@ -30,54 +31,62 @@ function Current() {
       <div className={toolbox.flexSpaceBetween}>
         <div className={toolbox.flexColumn}>
           <div className={toolbox.flex}>
-            <IoStarOutline onClick={() => addToFavourite(location)} />
-            <p>{location.name}</p>
+            <p className={toolbox.big}>{location.name}</p>
+            <IoStarOutline
+              className={styles.favouriteIcon}
+              onClick={() => addToFavourite(location)}
+            />
           </div>
-          <p>{location.country}</p>
+          <p className={toolbox.italic}>{location.country}</p>
         </div>
         <img src={current.condition.icon} />
       </div>
-      <div className={toolbox.grid4c}>
+      <div className={`${toolbox.grid4c} ${toolbox.big}`}>
         <div className={toolbox.flex} title="Temperature °C">
           <WiThermometer />
-          <p>{current.temp_c}°</p>
-          <p>({current.feelslike_c}°)</p>
+          <p className={toolbox.red}>{current.temp_c}°</p>
+          <p className={`${toolbox.small} ${toolbox.red}`}>
+            ({current.feelslike_c}°)
+          </p>
         </div>
         <div className={toolbox.flex} title="Precipitation mm">
           <WiUmbrella />
-          <p>{current.precip_mm}</p>
-          <p>mm</p>
+          <p className={toolbox.blue}>{current.precip_mm}</p>
+          <p className={`${toolbox.small} ${toolbox.blue}`}>mm</p>
         </div>
         <div className={toolbox.flex} title="Wind kph">
           <WiStrongWind />
           <p>{current.wind_kph}</p>
-          <p>kph</p>
+          <p className={toolbox.small}>kph</p>
         </div>
         <div className={toolbox.flex} title="UV index">
           <WiDaySunny />
-          {/* className={toolbox[uvIndex.at(current.uv - 1).color]} */}
           <p>{current.uv}</p>
-          <p>{uvIndex.at(current.uv - 1).name}</p>
+          <p className={toolbox.small}>{uvIndex.at(current.uv - 1).name}</p>
         </div>
         <div className={toolbox.flex} title="Pressure hPa">
           <WiBarometer />
           <p>{current.pressure_mb}</p>
-          <p>hPa</p>
+          <p className={toolbox.small}>hPa</p>
         </div>
         <div className={toolbox.flex} title="Humidity %">
           <WiRaindrops />
           <p>{current.humidity}</p>
-          <p>%</p>
+          <p className={toolbox.small}>%</p>
         </div>
         <div className={toolbox.flex} title="Sunrise">
           <WiSunrise />
           <p>{forecast.forecastday[0].astro.sunrise.slice(0, 5)}</p>
-          <p>{forecast.forecastday[0].astro.sunrise.slice(-2)}</p>
+          <p className={toolbox.small}>
+            {forecast.forecastday[0].astro.sunrise.slice(-2)}
+          </p>
         </div>
         <div className={toolbox.flex} title="Sunset">
           <WiSunset />
           <p>{forecast.forecastday[0].astro.sunset.slice(0, 5)}</p>
-          <p>{forecast.forecastday[0].astro.sunset.slice(-2)}</p>
+          <p className={toolbox.small}>
+            {forecast.forecastday[0].astro.sunset.slice(-2)}
+          </p>
         </div>
       </div>
     </div>

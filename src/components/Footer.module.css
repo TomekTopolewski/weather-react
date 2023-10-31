@@ -1,0 +1,16 @@
+.footer {
+  width: 80rem;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.4rem;
+  gap: 0.8rem;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.center {
+  padding: 1.4rem;
+  background-color: var(--white);
+  display: flex;
+  justify-content: center;
+}

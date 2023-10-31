@@ -1,0 +1,7 @@
+.favouriteIcon {
+  font-size: 1.8rem;
+}
+
+.favouriteIcon:hover {
+  color: var(--yellow);
+}

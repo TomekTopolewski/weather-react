@@ -15,9 +15,9 @@ function App() {
           <Favourities />
           <Current />
           <Forecast />
-          <Footer />
         </div>
       </div>
+      <Footer />
     </WeatherProvider>
   );
 }
