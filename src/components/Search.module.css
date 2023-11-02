@@ -67,4 +67,8 @@ input::placeholder {
   .window {
     width: 94%;
   }
+
+  .window p {
+    display: none;
+  }
 }
