@@ -30,20 +30,27 @@ function Search() {
 
   return (
     <div className={styles.search}>
-      <div className={styles.wrapper}>
+      <div className={styles.window}>
         <div className={toolbox.flex}>
-          <IoSearchOutline className={toolbox.medium} />
-          <input
-            type="text"
-            placeholder="Search"
-            value={query}
-            onChange={(event) => search(event.target.value)}
-          />
+          <img src="/logo.png" className={toolbox.imgSmall} />
+          <p className={`${toolbox.medium} ${toolbox.white}`}>
+            Simple weather app
+          </p>
         </div>
-        <IoLocateOutline className={styles.gpsIcon} onClick={getPosition} />
+        <div className={styles.wrapper}>
+          <div className={toolbox.flex}>
+            <IoSearchOutline className={toolbox.medium} />
+            <input
+              type="text"
+              placeholder="Search"
+              value={query}
+              onChange={(event) => search(event.target.value)}
+            />
+          </div>
+          <IoLocateOutline className={styles.gpsIcon} onClick={getPosition} />
+        </div>
+        {showSearchList && list()}
       </div>
-
-      {showSearchList && list()}
     </div>
   );
 }

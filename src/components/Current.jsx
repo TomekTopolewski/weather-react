@@ -8,7 +8,7 @@ import {
   WiBarometer,
   WiRaindrops,
 } from "react-icons/wi";
-import { IoStarOutline, IoTimeOutline } from "react-icons/io5";
+import { IoStarOutline, IoTimeOutline, IoWarningOutline } from "react-icons/io5";
 import { useWeather } from "../contexts/WeatherContext";
 import toolbox from "./Toolbox.module.css";
 import styles from "./Current.module.css";
@@ -17,7 +17,17 @@ function Current() {
   const { city, uvIndex, addToFavourite } = useWeather();
   if (Object.keys(city).length === 0) return;
 
-  const { location, current, forecast } = city;
+  const {
+    location,
+    current,
+    forecast,
+    alerts: { alert },
+  } = city;
+
+  function alertMessage() {
+    if (alert.length === 0) return;
+    return alert.reduce((acc, curr) => acc + (curr.event + " "), "");
+  }
 
   return (
     <div className={toolbox.container}>
@@ -25,6 +35,9 @@ function Current() {
         <div className={toolbox.flex}>
           <IoTimeOutline />
           <p>Current conditions</p>
+          {alert.length > 0 ? (
+            <IoWarningOutline title={alertMessage()} className={toolbox.red} />
+          ) : null}
         </div>
         <p>{location.localtime}</p>
       </div>

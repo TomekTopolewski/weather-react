@@ -1,18 +1,25 @@
 .search {
-  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 6rem;
   background-color: var(--grey);
 }
 
+.window {
+  position: relative;
+  width: 80rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .searchList {
   position: absolute;
-  top: 4.8rem;
+  top: 4rem;
+  right: 0;
   z-index: 999;
-  width: 60rem;
+  width: 40rem;
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 0 0.2rem var(--grey);
@@ -52,8 +59,12 @@ input::placeholder {
 }
 
 @media (max-width: 44em) {
-  .searchList,
-  .wrapper {
+  .wrapper,
+  .searchList {
+    width: 80%;
+  }
+
+  .window {
     width: 94%;
   }
 }
