@@ -56,17 +56,17 @@ function Current() {
           <WiThermometer />
           <p className={toolbox.red}>{current.temp_c}°</p>
           <p className={`${toolbox.small} ${toolbox.red}`}>
-            ({current.feelslike_c}°)
+            ({Math.floor(current.feelslike_c)}°)
           </p>
         </div>
         <div className={toolbox.flex} title="Precipitation mm">
           <WiUmbrella />
-          <p className={toolbox.blue}>{current.precip_mm}</p>
+          <p className={toolbox.blue}>{Math.floor(current.precip_mm)}</p>
           <p className={`${toolbox.small} ${toolbox.blue}`}>mm</p>
         </div>
         <div className={toolbox.flex} title="Wind kph">
           <WiStrongWind />
-          <p>{current.wind_kph}</p>
+          <p>{Math.floor(current.wind_kph)}</p>
           <p className={toolbox.small}>kph</p>
         </div>
         <div className={toolbox.flex} title="UV index">
