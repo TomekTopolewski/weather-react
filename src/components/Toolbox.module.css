@@ -14,6 +14,12 @@
   gap: 0.4rem;
 }
 
+.flexFlip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .flexColumn {
   display: flex;
   flex-direction: column;
@@ -29,7 +35,7 @@
 
 .grid4c {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .grid7c {
@@ -118,12 +124,22 @@ li:hover {
   height: 42px;
 }
 
-.active {
+.tab {
+  border-bottom: 0.2rem solid var(--white);
+}
+
+.activeTab {
   font-weight: 500;
+  border-bottom: 0.2rem solid var(--red);
 }
 
 @media (max-width: 44em) {
   .grid4c {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .flexFlip {
+    flex-direction: column;
+    justify-content: center;
   }
 }

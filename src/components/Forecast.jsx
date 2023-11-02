@@ -5,6 +5,8 @@ import {
   WiHumidity,
   WiUmbrella,
   WiDaySunny,
+  WiSunrise,
+  WiSunset,
 } from "react-icons/wi";
 import { Fragment } from "react";
 import { useWeather } from "../contexts/WeatherContext";
@@ -19,8 +21,6 @@ function Forecast() {
   const {
     forecast: { forecastday },
   } = city;
-
-  // const now = String(new Date().getTime() - 3600000).slice(0, 10);
 
   const tabNames = forecastday.map((day) => {
     const date = new Date(0);
@@ -68,11 +68,29 @@ function Forecast() {
             <IoCalendarOutline />
             <p>Forecast</p>
           </div>
+          <div className={toolbox.flexFlip}>
+            <div className={toolbox.flex} title="Sunrise">
+              <WiSunrise className={toolbox.medium} />
+              <p>{forecastday.at(forecDay).astro.sunrise.slice(0, 5)}</p>
+              <p className={toolbox.small}>
+                {forecastday.at(forecDay).astro.sunrise.slice(-2)}
+              </p>
+            </div>
+            <div className={toolbox.flex} title="Sunset">
+              <WiSunset className={toolbox.medium} />
+              <p>{forecastday.at(forecDay).astro.sunset.slice(0, 5)}</p>
+              <p className={toolbox.small}>
+                {forecastday.at(forecDay).astro.sunset.slice(-2)}
+              </p>
+            </div>
+          </div>
           <ul className={toolbox.flex}>
             {tabNames.map((name, index) => (
               <li
                 key={index}
-                className={`${index === forecDay ? toolbox["active"] : null}`}
+                className={`${
+                  index === forecDay ? toolbox["activeTab"] : toolbox["tab"]
+                }`}
                 onClick={() =>
                   dispatch({ type: "setForecastDay", payload: index })
                 }
@@ -106,8 +124,7 @@ function Forecast() {
           </div>
           {forecastday
             .at(forecDay)
-            .hour // .filter((h) => h.time_epoch >= now)
-            .filter((_, i) => !(i % 2))
+            .hour.filter((_, i) => !(i % 2))
             .map((hour) => row(hour))}
         </div>
         <footer></footer>

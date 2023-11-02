@@ -8,7 +8,7 @@
 
 .window {
   position: relative;
-  width: 80rem;
+  width: 70rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,7 +19,7 @@
   top: 4rem;
   right: 0;
   z-index: 999;
-  width: 40rem;
+  width: 30rem;
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 0 0.2rem var(--grey);
@@ -28,7 +28,7 @@
 }
 
 .wrapper {
-  width: 40rem;
+  width: 30rem;
   height: 3rem;
   display: flex;
   align-items: center;

@@ -2,8 +2,6 @@ import {
   WiThermometer,
   WiStrongWind,
   WiUmbrella,
-  WiSunrise,
-  WiSunset,
   WiDaySunny,
   WiBarometer,
   WiRaindrops,
@@ -20,7 +18,6 @@ function Current() {
   const {
     location,
     current,
-    forecast,
     alerts: { alert },
   } = city;
 
@@ -86,20 +83,6 @@ function Current() {
           <WiRaindrops />
           <p>{current.humidity}</p>
           <p className={toolbox.small}>%</p>
-        </div>
-        <div className={toolbox.flex} title="Sunrise">
-          <WiSunrise />
-          <p>{forecast.forecastday[0].astro.sunrise.slice(0, 5)}</p>
-          <p className={toolbox.small}>
-            {forecast.forecastday[0].astro.sunrise.slice(-2)}
-          </p>
-        </div>
-        <div className={toolbox.flex} title="Sunset">
-          <WiSunset />
-          <p>{forecast.forecastday[0].astro.sunset.slice(0, 5)}</p>
-          <p className={toolbox.small}>
-            {forecast.forecastday[0].astro.sunset.slice(-2)}
-          </p>
         </div>
       </div>
     </div>
