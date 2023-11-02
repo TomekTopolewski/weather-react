@@ -20,7 +20,7 @@ function Forecast() {
     forecast: { forecastday },
   } = city;
 
-  const now = String(new Date().getTime() - 3600000).slice(0, 10);
+  // const now = String(new Date().getTime() - 3600000).slice(0, 10);
 
   const tabNames = forecastday.map((day) => {
     const date = new Date(0);
@@ -106,7 +106,7 @@ function Forecast() {
           </div>
           {forecastday
             .at(forecDay)
-            .hour.filter((h) => h.time_epoch >= now)
+            .hour // .filter((h) => h.time_epoch >= now)
             .filter((_, i) => !(i % 2))
             .map((hour) => row(hour))}
         </div>

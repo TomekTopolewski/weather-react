@@ -58,6 +58,11 @@ input::placeholder {
   color: var(--pink);
 }
 
+.text {
+  font-size: 2.4rem;
+  color: var(--white);
+}
+
 @media (max-width: 44em) {
   .wrapper,
   .searchList {
@@ -68,7 +73,7 @@ input::placeholder {
     width: 94%;
   }
 
-  .window p {
+  .text {
     display: none;
   }
 }

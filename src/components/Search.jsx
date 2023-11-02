@@ -33,9 +33,7 @@ function Search() {
       <div className={styles.window}>
         <div className={toolbox.flex}>
           <img src="/logo.png" className={toolbox.imgSmall} />
-          <p className={`${toolbox.medium} ${toolbox.white}`}>
-            Simple weather app
-          </p>
+          <p className={styles.text}>Simple weather app</p>
         </div>
         <div className={styles.wrapper}>
           <div className={toolbox.flex}>
