@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 
-const API_KEY = `${import.meta.env.VITE_API_KEY}${String(300528 * 2)}${String(
-  26461814 / 2
-)}`;
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.weatherapi.com/v1/";
 
 function readLocalStorage() {
