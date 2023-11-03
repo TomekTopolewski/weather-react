@@ -1,0 +1,19 @@
+.list {
+  position: absolute;
+  top: 4rem;
+  right: 0;
+  z-index: 999;
+  width: 42%;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 0 0.2rem var(--grey);
+  padding: 0.4rem 0.8rem;
+  font-size: 1.6rem;
+}
+
+/* 1em = 16px */
+@media (max-width: 44em) {
+  .list {
+    width: 80%;
+  }
+}

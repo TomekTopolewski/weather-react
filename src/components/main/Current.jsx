@@ -7,8 +7,8 @@ import {
   WiRaindrops,
 } from "react-icons/wi";
 import { IoStarOutline, IoTimeOutline, IoWarningOutline } from "react-icons/io5";
-import { useWeather } from "../contexts/WeatherContext";
-import toolbox from "./Toolbox.module.css";
+import { useWeather } from "../../contexts/WeatherContext";
+import toolbox from "../Toolbox.module.css";
 import styles from "./Current.module.css";
 
 function Current() {

@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+  background-color: var(--grey);
+}
+
+.container {
+  position: relative;
+  width: 70rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 1em = 16px */
+@media (max-width: 44em) {
+  .container {
+    width: 92%;
+  }
+}

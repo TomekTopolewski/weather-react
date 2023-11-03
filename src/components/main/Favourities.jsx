@@ -1,6 +1,6 @@
-import { useWeather } from "../contexts/WeatherContext";
+import { useWeather } from "../../contexts/WeatherContext";
 import { IoMapOutline } from "react-icons/io5";
-import toolbox from "./Toolbox.module.css";
+import toolbox from "../Toolbox.module.css";
 
 function Favourities() {
   const { favourities, getData } = useWeather();

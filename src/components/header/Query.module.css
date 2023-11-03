@@ -1,0 +1,37 @@
+.query {
+  width: 42%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+input {
+  width: 98%;
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
+.gpsIcon {
+  font-size: 2.2rem;
+}
+
+.gpsIcon:hover {
+  transition: all 0.25s linear;
+  color: var(--pink);
+}
+
+/* 1em = 16px */
+@media (max-width: 44em) {
+  .query {
+    width: 80%;
+  }
+}
