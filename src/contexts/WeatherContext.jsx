@@ -10,8 +10,6 @@ function readLocalStorage() {
 }
 
 const initialState = {
-  query: "",
-  cities: [],
   city: {},
   favourities: readLocalStorage(),
   uvIndex: [
@@ -27,27 +25,15 @@ const initialState = {
     { name: "very high", color: "red" },
     { name: "extreme", color: "purple" },
   ],
-  showSearchList: false,
   forecDay: 0,
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "setQuery":
-      return {
-        ...state,
-        query: action.payload.query,
-        showSearchList: action.payload.flag,
-      };
-    case "setCities":
-      return { ...state, cities: action.payload };
     case "setCity":
       return {
         ...state,
         city: action.payload,
-        query: "",
-        cities: [],
-        showSearchList: false,
         forecDay: 0,
       };
     case "addToFavourite":
@@ -62,10 +48,10 @@ function reducer(state, action) {
 const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
-  const [
-    { query, cities, city, uvIndex, favourities, showSearchList, forecDay },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [{ city, uvIndex, favourities, forecDay }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   function addToFavourite(city) {
     let duplicate = false;
@@ -76,27 +62,6 @@ function WeatherProvider({ children }) {
       dispatch({ type: "addToFavourite", payload: city });
       localStorage.setItem("favourities", JSON.stringify([...favourities, city]));
     }
-  }
-
-  async function search(query) {
-    dispatch({ type: "setQuery", payload: { query, flag: true } });
-
-    if (query.length < 3) return;
-
-    const controller = new AbortController();
-    try {
-      const response = await fetch(
-        `${BASE_URL}search.json?key=${API_KEY}&q=${query}`,
-        { signal: controller.signal }
-      );
-      const data = await response.json();
-      dispatch({ type: "setCities", payload: data });
-    } catch (error) {
-      if (error.name !== "AbortError") throw new Error(error.message);
-    }
-    return () => {
-      controller.abort();
-    };
   }
 
   async function getData(location) {
@@ -136,30 +101,14 @@ function WeatherProvider({ children }) {
     getData(`52.25,21`);
   }, []);
 
-  useEffect(() => {
-    function callback(event) {
-      if (event.code === "Escape") {
-        dispatch({ type: "setQuery", payload: { query: "", flag: false } });
-      }
-    }
-    document.addEventListener("keydown", callback);
-    return () => {
-      document.removeEventListener("keydown", callback);
-    };
-  });
-
   return (
     <WeatherContext.Provider
       value={{
-        query,
-        cities,
         city,
         uvIndex,
         favourities,
-        showSearchList,
         forecDay,
         addToFavourite,
-        search,
         getData,
         getPosition,
         dispatch,

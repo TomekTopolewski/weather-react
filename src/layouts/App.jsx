@@ -13,16 +13,19 @@ import ApiLogo from "../components/footer/ApiLogo";
 
 import { WeatherProvider } from "../contexts/WeatherContext";
 import styles from "./App.module.css";
+import { SearchProvider } from "../contexts/SearchContext";
 
 function App() {
   return (
     <div className={styles.app}>
       <WeatherProvider>
-        <Header>
-          <AppLogo />
-          <Query />
-          <List />
-        </Header>
+        <SearchProvider>
+          <Header>
+            <AppLogo />
+            <Query />
+            <List />
+          </Header>
+        </SearchProvider>
         <Main>
           <Favourities />
           <Current />

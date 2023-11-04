@@ -2,9 +2,11 @@ import styles from "./Query.module.css";
 import toolbox from "../Toolbox.module.css";
 import { IoSearchOutline, IoLocateOutline } from "react-icons/io5";
 import { useWeather } from "../../contexts/WeatherContext";
+import { useSearch } from "../../contexts/SearchContext";
 
 function Query() {
-  const { query, search, getPosition } = useWeather();
+  const { getPosition } = useWeather();
+  const { search, query } = useSearch();
 
   return (
     <div className={styles.query}>
