@@ -12,19 +12,6 @@ function readLocalStorage() {
 const initialState = {
   city: {},
   favourities: readLocalStorage(),
-  uvIndex: [
-    { name: "low", color: "green" },
-    { name: "low", color: "green" },
-    { name: "moderate", color: "yellow" },
-    { name: "moderate", color: "yellow" },
-    { name: "moderate", color: "yellow" },
-    { name: "high", color: "orange" },
-    { name: "high", color: "orange" },
-    { name: "very high", color: "red" },
-    { name: "very high", color: "red" },
-    { name: "very high", color: "red" },
-    { name: "extreme", color: "purple" },
-  ],
   forecDay: 0,
 };
 
@@ -48,7 +35,7 @@ function reducer(state, action) {
 const WeatherContext = createContext();
 
 function WeatherProvider({ children }) {
-  const [{ city, uvIndex, favourities, forecDay }, dispatch] = useReducer(
+  const [{ city, favourities, forecDay }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -66,22 +53,16 @@ function WeatherProvider({ children }) {
 
   async function getData(location) {
     if (!location) return;
-
-    const controller = new AbortController();
     try {
       const response = await fetch(
-        `${BASE_URL}forecast.json?key=${API_KEY}&q=${location}&days=3&aqi=no&alerts=yes`,
-        { signal: controller.signal }
+        `${BASE_URL}forecast.json?key=${API_KEY}&q=${location}&days=3&aqi=no&alerts=yes`
       );
       const data = await response.json();
       dispatch({ type: "setCity", payload: data });
       document.title = `Weather in ${data.location.name}`;
     } catch (error) {
-      if (error.name !== "AbortError") throw new Error(error.message);
+      throw new Error(error.message);
     }
-    return () => {
-      controller.abort();
-    };
   }
 
   function getPosition() {
@@ -105,7 +86,6 @@ function WeatherProvider({ children }) {
     <WeatherContext.Provider
       value={{
         city,
-        uvIndex,
         favourities,
         forecDay,
         addToFavourite,

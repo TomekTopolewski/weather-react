@@ -12,7 +12,7 @@ import toolbox from "../Toolbox.module.css";
 import styles from "./Current.module.css";
 
 function Current() {
-  const { city, uvIndex, addToFavourite } = useWeather();
+  const { city, addToFavourite } = useWeather();
   if (Object.keys(city).length === 0) return;
 
   const {
@@ -20,6 +20,20 @@ function Current() {
     current,
     alerts: { alert },
   } = city;
+
+  const uvIndex = [
+    { name: "low", color: "green" },
+    { name: "low", color: "green" },
+    { name: "moderate", color: "yellow" },
+    { name: "moderate", color: "yellow" },
+    { name: "moderate", color: "yellow" },
+    { name: "high", color: "orange" },
+    { name: "high", color: "orange" },
+    { name: "very high", color: "red" },
+    { name: "very high", color: "red" },
+    { name: "very high", color: "red" },
+    { name: "extreme", color: "purple" },
+  ];
 
   function alertMessage() {
     if (alert.length === 0) return;

@@ -36,23 +36,16 @@ function SearchProvider({ children }) {
 
   async function search(query) {
     dispatch({ type: "setQuery", payload: { query, flag: true } });
-
     if (query.length < 3) return;
-
-    const controller = new AbortController();
     try {
       const response = await fetch(
-        `${BASE_URL}search.json?key=${API_KEY}&q=${query}`,
-        { signal: controller.signal }
+        `${BASE_URL}search.json?key=${API_KEY}&q=${query}`
       );
       const data = await response.json();
       dispatch({ type: "setCities", payload: data });
     } catch (error) {
-      if (error.name !== "AbortError") throw new Error(error.message);
+      throw new Error(error.message);
     }
-    return () => {
-      controller.abort();
-    };
   }
 
   function clear() {
